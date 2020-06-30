@@ -1,4 +1,4 @@
-const DataBaseModel = require('../models/DatabaseModel');
+const UserModel = require('../models/UserModel');
 
 module.exports = {
     
