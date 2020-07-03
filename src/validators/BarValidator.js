@@ -2,70 +2,77 @@ const { Segments, Joi } = require('celebrate');
 
 let validateBar = new Object;
 
+        /* table.string('id').primary().notNullable();
+        table.string('firebase_id').notNullable();
+        table.string('name').notNullable();
+        table.string('image_id');
+        table.string('description');
+        table.string('phone').notNullable();
+        table.string('email').notNullable();
+        table.string('postal_code').notNullable();
+        table.string('state').notNullable();
+        table.string('city').notNullable();
+        table.string('neighborhood').notNullable();
+        table.string('street').notNullable();
+        table.integer('number').notNullable();
+        table.string('complement');
+        table.float('lat').notNullable();
+        table.float('long').notNullable();
+        table.timestamp('created_at').defaultTo(knex.fn.now()); */
+
+
 validateBar.create = {
 [Segments.BODY]: Joi.object().keys({
+        id: Joi.string().required(),
         firebase_id: Joi.string().required(),
         name: Joi.string().required(),
-        description: Joi.string().required(),
-        email: Joi.string().required(),
         image_id: Joi.string().optional(),
-        price_range: Joi.number().integer().min(0).max(4).required(),
-        phonenumber: Joi.string().required(),
-        zipcode: Joi.string().required(),
+        description: Joi.string().required(),
+        phone: Joi.string().required(),
+        email: Joi.string().required(),
+        postal_code: Joi.string().required(),
         state: Joi.string().required(),
         city: Joi.string().required(),
         neighborhood: Joi.string().required(),
         street: Joi.string().required(),
-        number: Joi.string().required(),
+        number: Joi.number().integer().required(),
         complement: Joi.string().optional(),
+        lat: Joi.number().required(),
+        long: Joi.number().required()
     })
-    /* table.string('firebase_id').notNullable();
-    table.string('name').notNullable();
-    table.string('description').notNullable();
-    table.string('email').notNullable();
-    table.string('image_id');
-    table.enu('price_range', [0, 1, 2, 3, 4]).notNullable();
-    table.string('zipcode').notNullable();
-    table.string('phonenumber');
-    table.string('state').notNullable();
-    table.string('city').notNullable();
-    table.string('neighborhood').notNullable();
-    table.string('street').notNullable();
-    table.string('number').notNullable();
-    table.string('complement'); */
 };
 
 validateBar.readOne = {
     [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
+        id: Joi.string().required(),
     })
 };
 
 validateBar.update = {
     [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
+        id: Joi.string().required(),
     }),
     [Segments.BODY]: Joi.object().keys({
-        firebase_id: Joi.string().optional(),
         name: Joi.string().optional(),
-        description: Joi.string().optional(),
-        email: Joi.string().optional(),
         image_id: Joi.string().optional(),
-        price_range: Joi.number().integer().min(0).max(4).optional(),
-        phonenumber: Joi.string().optional(),
-        zipcode: Joi.string().optional(),
+        description: Joi.string().optional(),
+        phone: Joi.string().optional(),
+        email: Joi.string().optional(),
+        postal_code: Joi.string().optional(),
         state: Joi.string().optional(),
         city: Joi.string().optional(),
         neighborhood: Joi.string().optional(),
         street: Joi.string().optional(),
         number: Joi.string().optional(),
         complement: Joi.string().optional(),
+        lat: Joi.number().optional(),
+        long: Joi.number().optional()
     })
 };
 
 validateBar.delete = {
     [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required(),
+        id: Joi.string().required(),
     }),
 };
 
