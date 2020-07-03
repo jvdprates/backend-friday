@@ -38,32 +38,32 @@ exports.up = function(knex) {
     })
     .createTable(('bars_categories'), function (table) {
         table.increments();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
         table.integer('categories_id').references('id').inTable('categories').notNullable();
     })
     .createTable(('products'), function (table) {
         table.string('id').primary().notNullable();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
         table.float('price').notNullable();
         table.string('description');
     })
     .createTable(('events'), function (table) {
         table.increments();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
         table.string('description'); 
         table.string('img_link');
         table.string('category'); 
     })
     .createTable(('comments'), function (table) {
         table.increments();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
-        table.string('user_id').references('id').inTable('users').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
+        table.string('user_id').references('id').inTable('users').onDelete('CASCADE').notNullable();
         table.string('comment').notNullable();
     })
     .createTable(('avaliations'), function (table) {
         table.increments();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
-        table.string('users_id').references('id').inTable('users').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
+        table.string('users_id').references('id').inTable('users').onDelete('CASCADE').notNullable();
         table.enu('bar_space', [1, 2, 3, 4, 5]);
         table.enu('bar_service', [1, 2, 3, 4, 5]);
         table.enu('bar_cleaning', [1, 2, 3, 4, 5]);
@@ -73,12 +73,12 @@ exports.up = function(knex) {
     })
     .createTable(('tables'), function (table) {
         table.string('id').primary().notNullable();
-        table.string('bars_id').references('id').inTable('bars').notNullable();
+        table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
         table.integer('table_number').notNullable();
     })
     .createTable(('order_sheets'), function (table){
         table.string('id').primary().notNullable();
-        table.string('user_id').references('id').inTable('users').notNullable();
+        table.string('user_id').references('id').inTable('users').onDelete('SET NULL').notNullable();
         table.string('payment_method').notNullable();
         table.boolean('paid').defaultTo(false);
         table.boolean('checking_out').defaultTo(false);
