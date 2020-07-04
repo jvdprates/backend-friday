@@ -16,6 +16,16 @@ module.exports = {
     return result;
   },
 
+  async indexOne(id) {
+    console.log("Finding product: " + id);
+    const result = await connection("products")
+      .where({ id })
+      .select("*")
+      .first();
+
+    return result;
+  },
+
   async update(product_id, bar_id, product) {
     console.log("Updating product: " + product_id);
     const result = await connection("products")
