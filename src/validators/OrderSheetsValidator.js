@@ -1,6 +1,6 @@
-const { Segments, Joi } = require('celebrate');
+const { Segments, Joi } = require("celebrate");
 
-let validateOrderSheets = new Object;
+let validateOrderSheets = new Object();
 
 /* .createTable(('order_sheets'), function (table){
     table.string('id').primary().notNullable();
@@ -12,34 +12,42 @@ let validateOrderSheets = new Object;
 }) */
 
 validateOrderSheets.create = {
-    [Segments.BODY]: Joi.object().keys({
-        id: Joi.string().required(),
-        payment_method: Joi.string().required(),
-        tables_id: Joi.string().required(),
-    })
+  [Segments.BODY]: Joi.object().keys({
+    id: Joi.string().required(),
+    payment_method: Joi.string().required(),
+    tables_id: Joi.string().required(),
+  }),
 };
 
 validateOrderSheets.getByUser = {
-    [Segments.PARAMS]: Joi.object().keys({
-        user_id: Joi.string().required(),
-    }),
+  [Segments.PARAMS]: Joi.object().keys({
+    user_id: Joi.string().required(),
+  }),
+};
+
+validateOrderSheets.indexPeople = {
+  [Segments.PARAMS]: Joi.object().keys({
+    bar_id: Joi.string().required(),
+  }),
 };
 
 validateOrderSheets.update = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    }),
-    [Segments.BODY]: Joi.object().keys({
-        paid: Joi.boolean().optional(),
-        checking_out: Joi.boolean().optional(),
-        payment_method: Joi.string().optional(),
-    })
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+  [Segments.BODY]: Joi.object().keys({
+    paid: Joi.boolean().optional(),
+    checking_out: Joi.boolean().optional(),
+    payment_method: Joi.string().optional(),
+    approved: Joi.boolean().optional(),
+    guests: Joi.number().integer().optional(),
+  }),
 };
 
 validateOrderSheets.delete = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    })
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
 };
 
 module.exports = validateOrderSheets;
