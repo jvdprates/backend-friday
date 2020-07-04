@@ -44,8 +44,10 @@ exports.up = function(knex) {
     .createTable(('products'), function (table) {
         table.string('id').primary().notNullable();
         table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
+        table.string('image_id');
         table.float('price').notNullable();
-        table.string('description');
+        table.string('description').notNullable();
+        table.string('name').notNullable();
     })
     .createTable(('events'), function (table) {
         table.increments();
