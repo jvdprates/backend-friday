@@ -1,5 +1,4 @@
 const connection = require("../database/connection");
-const { deleteCard } = require("../controllers/UserController");
 
 module.exports = {
     async createUser(user) {
@@ -10,7 +9,7 @@ module.exports = {
         return result;
     },
 
-    async readOneUser(user_id) {
+    async getOneUser(user_id) {
         console.log("Finding User: " + user_id);
         const result = await connection("users")
             .where({ id: user_id })
