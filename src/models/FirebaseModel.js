@@ -18,7 +18,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://dildo-system.firebaseio.com"
+  databaseURL: "https://megahack-3-t60.firebaseio.com"
 });
 
 module.exports = {
