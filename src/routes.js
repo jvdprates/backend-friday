@@ -47,8 +47,8 @@ routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAva
 routes.post('/bar', generateId, celebrate(validateBar.create), BarController.create);
 routes.get('/bar', BarController.getAll);
 routes.get('/bar/:id', celebrate(validateBar.getOne), BarController.getOne);
-routes.put('/bar/:id', celebrate(validateBar.update), BarController.update);
-routes.delete('/bar/:id', celebrate(validateBar.delete), BarController.delete);
+routes.put('/bar', authenticateToken, isBar, celebrate(validateBar.update), BarController.update);
+routes.delete('/bar', authenticateToken, isBar, BarController.delete);
 
 //card
 routes.post('/card', authenticateToken, isUser, generateId, celebrate(validateCard.newCard), CardController.newCard);

@@ -39,6 +39,6 @@ module.exports = {
             .where({ id: bar_id })
             .delete();
         console.log("Bar Deleted!");
-        return result; 
+        return result;
     },
 }

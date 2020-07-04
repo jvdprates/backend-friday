@@ -23,12 +23,12 @@ table.string('firebase_id').notNullable(); */
 validateBar.create = {
 [Segments.BODY]: Joi.object().keys({
         id: Joi.string().required(),
-        firebase_id: Joi.string().required(),
         name: Joi.string().required(),
         image_id: Joi.string().optional(),
         description: Joi.string().required(),
         phone: Joi.string().required(),
         email: Joi.string().required(),
+        password: Joi.string().required(),
         postal_code: Joi.string().required(),
         state: Joi.string().required(),
         city: Joi.string().required(),
@@ -48,9 +48,6 @@ validateBar.getOne = {
 };
 
 validateBar.update = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    }),
     [Segments.BODY]: Joi.object().keys({
         name: Joi.string().optional(),
         image_id: Joi.string().optional(),
@@ -67,12 +64,6 @@ validateBar.update = {
         lat: Joi.number().optional(),
         long: Joi.number().optional()
     })
-};
-
-validateBar.delete = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    }),
 };
 
 module.exports = validateBar;
