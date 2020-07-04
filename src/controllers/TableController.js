@@ -3,7 +3,7 @@ const TablesModel = require("../models/TableModel");
 module.exports = {
   async create(request, response) {
     try {
-      const { id: bars_id } = request.session; //SESSAO
+      const { id: bars_id } = request.session;
       const table = request.body;
 
       table.bars_id = bars_id;
@@ -34,7 +34,7 @@ module.exports = {
 
   async update(request, response) {
     try {
-      const { id: bar_id } = request.session; //SESSAO
+      const { id: bar_id } = request.session;
       const { id } = request.params;
       const table = request.body;
       const result = await TablesModel.update(id, bar_id, table);
@@ -50,7 +50,7 @@ module.exports = {
 
   async delete(request, response) {
     try {
-      const { id: bar_id } = request.session; //SESSAO
+      const { id: bar_id } = request.session; 
       const { id } = request.params;
 
       const result = await TablesModel.delete(id, bar_id);
