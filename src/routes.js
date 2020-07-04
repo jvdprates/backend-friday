@@ -40,12 +40,6 @@ const validateUser = require('./validators/UserValidator');
 const OrderController = require('./controllers/OrderController');
 const validadeOrder = require('./validators/OrderValidator');
 
-//User
-routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
-routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
-routes.put('/user/:id', celebrate(validateUser.update), UserController.update);
-routes.delete('/user/:id', celebrate(validateUser.delete), UserController.delete);
-
 //Avaliation
 routes.post('/avaliation', authenticateToken, isUser, celebrate(validadeAvaliation.create), AvaliationController.create);
 routes.get('/avaliation/:bar_id', celebrate(validadeAvaliation.index), AvaliationController.index);
@@ -59,7 +53,7 @@ routes.get('/bar/:id', celebrate(validateBar.getOne), BarController.getOne);
 routes.put('/bar/:id', celebrate(validateBar.update), BarController.update);
 routes.delete('/bar/:id', celebrate(validateBar.delete), BarController.delete);
 
-//card
+//Card
 routes.post('/card', authenticateToken, isUser, generateId, celebrate(validateCard.newCard), CardController.newCard);
 routes.delete('/card', authenticateToken, isUser, CardController.deleteCard)
 
