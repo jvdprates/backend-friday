@@ -13,10 +13,10 @@ module.exports = {
         }
     },
 
-    async readOne(request, response) {
+    async getOne(request, response) {
         try {
             let { id } = request.params;
-            const result = await UserModel.readOneUser(id);
+            const result = await UserModel.getOneUser(id);
             return response.status(200).json(result);
         } catch (err) {
             console.log("User reading failed: " + err);

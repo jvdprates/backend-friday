@@ -38,7 +38,7 @@ validateUser.deleteCard = {
     }),
 };
 
-validateUser.readOne = {
+validateUser.getOne = {
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.string().required(),
     })
