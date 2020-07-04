@@ -25,6 +25,9 @@ const validadeProduct = require('./validators/ProductValidator');
 const AvaliationController = require('./controllers/AvaliationController');
 const validadeAvaliation = require('./validators/AvalitationValidator');
 
+const TableController = require('./controllers/TableController');
+const validadeTable = require('./validators/TableValidator');
+
 //User
 routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
 routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
@@ -74,6 +77,12 @@ routes.post('/avaliation', authenticateToken, isUser,celebrate(validadeAvaliatio
 routes.get('/avaliation/:bar_id', celebrate(validadeAvaliation.index), AvaliationController.index);
 routes.put('/avaliation/:id', authenticateToken, isUser, celebrate(validadeAvaliation.update), AvaliationController.update);
 routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAvaliation.delete), AvaliationController.delete);
+
+//Table
+routes.post('/table', authenticateToken, isBar, celebrate(validadeTable.create), TableController.create);
+routes.get('/tables/:bar_id', celebrate(validadeTable.index), TableController.index);
+routes.put('/table/:id', authenticateToken, isBar, celebrate(validadeTable.update), TableController.update);
+routes.delete('/table/:id',authenticateToken, isBar, celebrate(validadeTable.delete), TableController.delete);
 
 //Token temporário
 const jwt = require('jsonwebtoken');

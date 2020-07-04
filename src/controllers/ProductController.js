@@ -27,7 +27,7 @@ module.exports = {
     } catch (err) {
       console.log("Product reading failed: " + err);
       return response.status(500).json({
-        notification: "Internal server error while trying to get categories",
+        notification: "Internal server error while trying to get products",
       });
     }
   },
@@ -43,7 +43,7 @@ module.exports = {
     } catch (err) {
       console.log("Product reading failed: " + err);
       return response.status(500).json({
-        notification: "Internal server error while trying to get categories",
+        notification: "Internal server error while trying to get products",
       });
     }
   },
