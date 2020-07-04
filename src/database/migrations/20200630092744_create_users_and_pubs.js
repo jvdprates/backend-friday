@@ -57,7 +57,7 @@ exports.up = function(knex) {
     .createTable(('comments'), function (table) {
         table.increments();
         table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
-        table.string('user_id').references('id').inTable('users').onDelete('CASCADE').notNullable();
+        table.string('users_id').references('id').inTable('users').onDelete('CASCADE').notNullable();
         table.string('comment').notNullable();
     })
     .createTable(('avaliations'), function (table) {
