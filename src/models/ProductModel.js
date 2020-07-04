@@ -4,7 +4,7 @@ module.exports = {
   async create(product) {
     console.log("Product: " + product.name);
     const result = await connection("products").insert(product);
-    console.log("User Product!");
+    console.log("Create Product!");
     return result;
   },
 

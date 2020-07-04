@@ -1,19 +1,19 @@
-const ProductsModel = require("../models/ProductModel");
+const AvaliationModel = require("../models/AvaliationModel");
 
 module.exports = {
   async create(request, response) {
     try {
       const { id } = request.session; //SESSAO
-      const product = request.body;
+      avaliation = request.body;
 
-      product.bars_id = id;
+      avaliation.users_id = id;
 
-      const result = await ProductsModel.create(product);
+      const result = await AvaliationModel.create(avaliation);
       return response.status(200).json(result);
     } catch (err) {
-      console.log("Product creation failed: " + err);
+      console.log("Avaliation creation failed: " + err);
       return response.status(500).json({
-        notification: "Internal server error while trying to create Product",
+        notification: "Internal server error while trying to create Avaliation",
       });
     }
   },
@@ -21,11 +21,11 @@ module.exports = {
   async index(request, response) {
     try {
       const { bar_id } = request.params;
-      const result = await ProductsModel.index(bar_id);
+      const result = await AvaliationModel.index(bar_id);
 
       return response.status(200).json(result);
     } catch (err) {
-      console.log("Product reading failed: " + err);
+      console.log("Avaliation reading failed: " + err);
       return response.status(500).json({
         notification: "Internal server error while trying to get categories",
       });
@@ -34,14 +34,14 @@ module.exports = {
 
   async update(request, response) {
     try {
-      const { id: bar_id } = request.session; //SESSAO
+      const { id: user_id } = request.session; //SESSAO
       const { id } = request.params;
-      const product = request.body;
-      const result = await ProductsModel.update(id, bar_id, product);
+      const avaliation = request.body;
+      const result = await AvaliationModel.update(id, user_id, avaliation);
 
       return response.status(200).json(result);
     } catch (err) {
-      console.log("Product reading failed: " + err);
+      console.log("Avaliation reading failed: " + err);
       return response.status(500).json({
         notification: "Internal server error while trying to get categories",
       });
@@ -50,15 +50,15 @@ module.exports = {
 
   async delete(request, response) {
     try {
-      const { id: bar_id } = request.session; //SESSAO
+      const { id: user_id } = request.session; //SESSAO
       const { id } = request.params;
 
-      const result = await ProductsModel.delete(id, bar_id);
+      const result = await AvaliationModel.delete(id, user_id);
       return response.status(200).json(result);
     } catch (err) {
-      console.log("Product deletion failed: " + err);
+      console.log("Avaliation deletion failed: " + err);
       return response.status(500).json({
-        notification: "Internal server error while trying to delete Product",
+        notification: "Internal server error while trying to delete Avaliation",
       });
     }
   },

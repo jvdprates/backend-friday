@@ -66,12 +66,12 @@ exports.up = function(knex) {
         table.increments();
         table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
         table.string('users_id').references('id').inTable('users').onDelete('CASCADE').notNullable();
-        table.enu('bar_space', [1, 2, 3, 4, 5]);
-        table.enu('bar_service', [1, 2, 3, 4, 5]);
-        table.enu('bar_cleaning', [1, 2, 3, 4, 5]);
-        table.enu('bar_foods', [1, 2, 3, 4, 5]);
-        table.enu('bar_drinks', [1, 2, 3, 4, 5]);
-        table.enu('bar_price', [1, 2, 3, 4, 5]);
+        table.integer('bar_space');
+        table.integer('bar_service');
+        table.integer('bar_cleaning');
+        table.integer('bar_foods');
+        table.integer('bar_drinks');
+        table.integer('bar_price');
     })
     .createTable(('tables'), function (table) {
         table.string('id').primary().notNullable();

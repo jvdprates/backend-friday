@@ -22,6 +22,9 @@ const validateComment = require('./validators/CommentValidator');
 const ProductController = require('./controllers/ProductController');
 const validadeProduct = require('./validators/ProductValidator');
 
+const AvaliationController = require('./controllers/AvaliationController');
+const validadeAvaliation = require('./validators/AvalitationValidator');
+
 //User
 routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
 routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
@@ -61,10 +64,16 @@ routes.put('/category/:id', celebrate(validateCategory.categorize), CategoryCont
 routes.delete('/category/:id', celebrate(validateCategory.delete), CategoryController.delete);
 
 //Product
-routes.post('/product', generateId, authenticateToken, isBar, celebrate(validadeProduct.create), ProductController.create);
+routes.post('/product', authenticateToken, isBar,generateId, celebrate(validadeProduct.create), ProductController.create);
 routes.get('/menu/:bar_id', celebrate(validadeProduct.index), ProductController.index);
 routes.put('/product/:id', authenticateToken, isBar, celebrate(validadeProduct.update), ProductController.update);
 routes.delete('/product/:id',authenticateToken, isBar, celebrate(validadeProduct.delete), ProductController.delete);
+
+//Avaliation
+routes.post('/avaliation', authenticateToken, isUser,celebrate(validadeAvaliation.create), AvaliationController.create);
+routes.get('/avaliation/:bar_id', celebrate(validadeAvaliation.index), AvaliationController.index);
+routes.put('/avaliation/:id', authenticateToken, isUser, celebrate(validadeAvaliation.update), AvaliationController.update);
+routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAvaliation.delete), AvaliationController.delete);
 
 //Token temporário
 const jwt = require('jsonwebtoken');
