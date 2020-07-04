@@ -32,7 +32,7 @@ validadeOrder.update = {
   [Segments.BODY]: Joi.object().keys({
     bars_id: Joi.string().optional(),
     products_id: Joi.string().optional(),
-    order_sheets_id: Joi.string().optional(),
+    order_sheets_id: Joi.string().required(),
     status: Joi.string().allow("waiting", "praparing", "delivered").optional(),
     amount: Joi.number().integer().min(1).optional(),
     price: Joi.number().min(0).optional(),

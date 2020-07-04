@@ -1,14 +1,10 @@
 const OrderModel = require("../models/OrderModel");
 const ProductModel = require("../models/ProductModel");
-const connection = require("../database/connection");
 
 module.exports = {
   async create(request, response) {
     try {
-      const { id } = request.session; //SESSAO
       order = request.body;
-
-      order.users_id = id;
 
       //Get productPrice
       const product = await ProductModel.indexOne(order.products_id);
@@ -61,7 +57,7 @@ module.exports = {
       const { id: user_id } = request.session; //SESSAO
       const { id } = request.params;
       const order = request.body;
-      const result = await OrderModel.update(id, user_id, order);
+      const result = await OrderModel.update(id, order.order_sheets_id, order);
 
       return response.status(200).json(result);
     } catch (err) {

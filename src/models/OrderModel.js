@@ -10,22 +10,31 @@ module.exports = {
 
   async indexBar(bar_id) {
     console.log("Finding orders from bar: " + bar_id);
-    const result = await connection("orders AS o")
-      .join("order_sheets AS s", "o.order_sheets_id", "s.id")
+    const sheets = await connection("order_sheets as s")
       .join("tables AS t", "s.tables_id", "t.id")
-      .select(
-        "o.*",
-        "s.user_id",
-        "s.payment_method",
-        "s.paid",
-        "s.checking_out",
-        "s.tables_id",
-        "s.checking_out",
-        "t.table_number"
-      )
+      .select("s.*", "t.table_number")
       .where({ "t.bars_id": bar_id, "s.paid": false });
 
-    return result;
+    const indexes = {};
+    const ids = sheets.map((sheet, index) => {
+      const id = sheet.id
+      sheet.orders = [];
+      indexes[id] = index;
+
+      return id;
+    });
+    const orders = await connection("orders")
+      .select("*")
+      .whereIn("order_sheets_id", ids);
+
+    orders.forEach((order) => {
+      let sheet_id = order.order_sheets_id;
+      const index = indexes[sheet_id];
+
+      sheets[index].orders.push(order);
+    });
+
+    return sheets;
   },
 
   async indexSheet(order_sheet_id) {
@@ -40,7 +49,7 @@ module.exports = {
 
   async update(order_id, order_sheet_id, order) {
     console.log("Updating order: " + order_id + " from: " + order_sheet_id);
-    const result = await connection("orders AS o")
+    const result = await connection("orders")
       .where({ id: order_id, order_sheets_id: order_sheet_id })
       .update(order);
     console.log("order Updated!");
