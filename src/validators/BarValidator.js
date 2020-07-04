@@ -2,24 +2,23 @@ const { Segments, Joi } = require('celebrate');
 
 let validateBar = new Object;
 
-        /* table.string('id').primary().notNullable();
-        table.string('firebase_id').notNullable();
-        table.string('name').notNullable();
-        table.string('image_id');
-        table.string('description');
-        table.string('phone').notNullable();
-        table.string('email').notNullable();
-        table.string('postal_code').notNullable();
-        table.string('state').notNullable();
-        table.string('city').notNullable();
-        table.string('neighborhood').notNullable();
-        table.string('street').notNullable();
-        table.integer('number').notNullable();
-        table.string('complement');
-        table.float('lat').notNullable();
-        table.float('long').notNullable();
-        table.timestamp('created_at').defaultTo(knex.fn.now()); */
-
+/* table.string('id').primary().notNullable();
+table.string('name').notNullable();
+table.string('image_id');
+table.string('description');
+table.string('phone').notNullable();
+table.string('email').notNullable();
+table.string('postal_code').notNullable();
+table.string('state').notNullable();
+table.string('city').notNullable();
+table.string('neighborhood').notNullable();
+table.string('street').notNullable();
+table.integer('number').notNullable();
+table.string('complement');
+table.float('lat').notNullable();
+table.float('long').notNullable();
+table.timestamp('created_at').defaultTo(knex.fn.now());
+table.string('firebase_id').notNullable(); */
 
 validateBar.create = {
 [Segments.BODY]: Joi.object().keys({
@@ -42,7 +41,7 @@ validateBar.create = {
     })
 };
 
-validateBar.readOne = {
+validateBar.getOne = {
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.string().required(),
     })
