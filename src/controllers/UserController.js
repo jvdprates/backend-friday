@@ -18,7 +18,7 @@ module.exports = {
             const result = await UserModel.readOneUser(id);
             return response.status(200).json(result);
         } catch(err) {
-            console.log("User creation failed: " + err);
+            console.log("User reading failed: " + err);
             return response.status(500).json({ notification: "Internal server error while trying to get one user" });
         }
     },
@@ -30,7 +30,7 @@ module.exports = {
             const result = await UserModel.updateUser(id, user);
             return response.status(200).json(result);
         } catch(err) {
-            console.log("User creation failed: " + err);
+            console.log("User updating failed: " + err);
             return response.status(500).json({ notification: "Internal server error while trying to update user" });
         }
     },
@@ -41,7 +41,7 @@ module.exports = {
             const result = await UserModel.deleteUser(id);
             return response.status(200).json(result);
         } catch(err) {
-            console.log("User creation failed: " + err);
+            console.log("User deletion failed: " + err);
             return response.status(500).json({ notification: "Internal server error while trying to delete user" });
         }
     },

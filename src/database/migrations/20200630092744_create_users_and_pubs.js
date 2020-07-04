@@ -33,13 +33,13 @@ exports.up = function(knex) {
         table.timestamp('created_at').defaultTo(knex.fn.now());
     })
     .createTable(('categories'), function (table) {
-        table.increments();
-        table.string('name').notNullable();
+        table.string('id').primary().notNullable();
+        table.string('category_name').notNullable();
     })
     .createTable(('bars_categories'), function (table) {
         table.increments();
         table.string('bars_id').references('id').inTable('bars').onDelete('CASCADE').notNullable();
-        table.integer('categories_id').references('id').inTable('categories').notNullable();
+        table.string('categories_id').references('id').inTable('categories').onDelete('CASCADE').notNullable();
     })
     .createTable(('products'), function (table) {
         table.string('id').primary().notNullable();

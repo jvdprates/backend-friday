@@ -9,7 +9,13 @@ module.exports = {
         return result;
     },
 
-    async readOneBar(bar_id) {
+    async getAllBars() {
+        const result = await connection("bars")
+            .select('*');
+        return result;
+    },
+
+    async getOneBar(bar_id) {
         console.log("Finding Bar: " + bar_id);
         const result = await connection("bars")
             .where({ id: bar_id })
