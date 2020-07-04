@@ -18,6 +18,15 @@ module.exports = {
         return result;
     },
 
+    async getOneUser(user_id) {
+        console.log("Finding User: " + user_id);
+        const result = await connection("users")
+            .where({ id: user_id })
+            .select("*")
+            .first();
+        return result;
+    },
+
     async updateUser(user_id, user) {
         console.log("Updating User: " + user_id);
         const result = await connection("users")

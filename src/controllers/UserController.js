@@ -42,7 +42,7 @@ module.exports = {
     async delete(request, response) {
         try {
             let { id } = request.session; //SESSAO
-            const user = await UserModel.getOne(id);
+            const user = await UserModel.getOneUser(id);
             await FirebaseModel.deleteUser(user.firebase_id);
             await UserModel.deleteUser(id);
             return response.status(200).json({ notification: `User ${user.name} ${user.surname} deleted!`});
