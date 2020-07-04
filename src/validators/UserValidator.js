@@ -22,22 +22,6 @@ validateUser.create = {
     })
 };
 
-validateUser.newCard = {
-    [Segments.PARAMS]: Joi.object().keys({
-        user_id: Joi.string().required(),
-    }),
-    [Segments.BODY]: Joi.object().keys({
-        id: Joi.string().required(),
-        asas_id: Joi.string().required(),
-    })
-};
-
-validateUser.deleteCard = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    }),
-};
-
 validateUser.readOne = {
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.string().required(),

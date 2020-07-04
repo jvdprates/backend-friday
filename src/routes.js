@@ -18,10 +18,6 @@ routes.get('/user/:id', celebrate(validateUser.readOne), UserController.readOne)
 routes.put('/user/:id', celebrate(validateUser.update), UserController.update);
 routes.delete('/user/:id', celebrate(validateUser.delete), UserController.delete);
 
-//card
-routes.post('/card/:user_id', generateId, celebrate(validateUser.newCard), UserController.newCard);
-routes.delete('/card/:id', celebrate(validateUser.deleteCard), UserController.deleteCard)
-
 //Bar
 routes.post('/bar', generateId, celebrate(validateBar.create), BarController.create);
 routes.get('/bar', BarController.getAll);
