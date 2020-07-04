@@ -14,7 +14,7 @@ const validateCategory = require('./validators/CategoryValidator');
 
 //User
 routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
-routes.get('/user/:id', celebrate(validateUser.readOne), UserController.readOne);
+routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
 routes.put('/user/:id', celebrate(validateUser.update), UserController.update);
 routes.delete('/user/:id', celebrate(validateUser.delete), UserController.delete);
 

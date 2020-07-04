@@ -10,7 +10,7 @@ module.exports = {
         return result;
     },
 
-    async readOneUser(user_id) {
+    async getOneUser(user_id) {
         console.log("Finding User: " + user_id);
         const result = await connection("users")
             .where({ id: user_id })
