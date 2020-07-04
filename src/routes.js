@@ -28,6 +28,9 @@ const validadeAvaliation = require('./validators/AvalitationValidator');
 const TableController = require('./controllers/TableController');
 const validadeTable = require('./validators/TableValidator');
 
+const OrderSheetsController = require('./controllers/OrderSheetsController');
+const validateOrderSheets = require('./validators/OrderSheetsValidator');
+
 //User
 routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
 routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
@@ -73,7 +76,7 @@ routes.put('/product/:id', authenticateToken, isBar, celebrate(validadeProduct.u
 routes.delete('/product/:id',authenticateToken, isBar, celebrate(validadeProduct.delete), ProductController.delete);
 
 //Avaliation
-routes.post('/avaliation', authenticateToken, isUser,celebrate(validadeAvaliation.create), AvaliationController.create);
+routes.post('/avaliation', authenticateToken, isUser, celebrate(validadeAvaliation.create), AvaliationController.create);
 routes.get('/avaliation/:bar_id', celebrate(validadeAvaliation.index), AvaliationController.index);
 routes.put('/avaliation/:id', authenticateToken, isUser, celebrate(validadeAvaliation.update), AvaliationController.update);
 routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAvaliation.delete), AvaliationController.delete);
@@ -83,6 +86,13 @@ routes.post('/table', authenticateToken, isBar, celebrate(validadeTable.create),
 routes.get('/tables/:bar_id', celebrate(validadeTable.index), TableController.index);
 routes.put('/table/:id', authenticateToken, isBar, celebrate(validadeTable.update), TableController.update);
 routes.delete('/table/:id',authenticateToken, isBar, celebrate(validadeTable.delete), TableController.delete);
+
+//Order_Sheets
+routes.post('/order_sheets', authenticateToken, isUser, generateId, celebrate(validateOrderSheets.create), OrderSheetsController.create);
+routes.get('/order_sheets', authenticateToken, isBar, OrderSheetsController.index);
+routes.get('/order_sheets/:user_id', authenticateToken, celebrate(validateOrderSheets.getByUser), OrderSheetsController.getByUser);
+routes.put('/order_sheets/:id', authenticateToken, isUser, celebrate(validateOrderSheets.update), OrderSheetsController.update);
+routes.delete('/order_sheets/:id',authenticateToken, isBar, celebrate(validateOrderSheets.delete), OrderSheetsController.delete);
 
 //Token temporário
 const jwt = require('jsonwebtoken');
