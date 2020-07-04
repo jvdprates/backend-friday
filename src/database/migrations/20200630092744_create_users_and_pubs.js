@@ -85,6 +85,8 @@ exports.up = function(knex) {
         table.boolean('paid').defaultTo(false);
         table.boolean('checking_out').defaultTo(false);
         table.string('tables_id').references('id').inTable('tables').notNullable();
+        table.integer('guests');
+        table.boolean('approved').defaultTo(false).notNullable();
     })
     .createTable(('orders'), function (table){
         table.string('id').primary().notNullable();
