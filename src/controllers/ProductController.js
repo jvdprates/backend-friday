@@ -1,4 +1,5 @@
 const ProductsModel = require("../models/ProductModel");
+const { uploadFile } = require("../models/GoogleDriveModel");
 
 module.exports = {
   async create(request, response) {
@@ -6,6 +7,14 @@ module.exports = {
       const { id } = request.session; //SESSAO
       const product = request.body;
 
+      let image_id;
+
+      if (request.file) {
+        const { originalname, buffer, mimetype } = request.file;
+        image_id = await uploadFile(buffer, originalname, mimetype);
+      }
+
+      product.image_id = image_id;
       product.bars_id = id;
 
       const result = await ProductsModel.create(product);

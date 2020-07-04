@@ -1,3 +1,5 @@
+const BarModel = require("../models/BarModel");
+const { uploadFile } = require("../models/GoogleDriveModel");
 const BarModel = require('../models/BarModel');
 const FirebaseModel = require('../models/FirebaseModel');
 
@@ -12,6 +14,15 @@ module.exports = {
 
             delete bar.password
             
+            let image_id;
+            if (request.file) {
+                const { originalname, buffer, mimetype } = request.file;
+                image_id = await uploadFile(buffer, originalname, mimetype);
+            }
+
+            const bar = request.body;
+            bar.image_id = image_id;
+
             const result = await BarModel.createBar(bar);
 
             return response.status(200).json(result);
@@ -24,26 +35,7 @@ module.exports = {
         }
     },
 
-    async getAll(request, response) {
-        try {
-            const result = await BarModel.getAllBars();
-            return response.status(200).json(result);
-        } catch(err) {
-            console.log("Bar reading failed: " + err);
-            return response.status(500).json({ notification: "Internal server error while trying to get all bars" });
-        }
-    },
-
-    async getOne(request, response) {
-        try {
-            let { id } = request.params;
-            const result = await BarModel.getOneBar(id);
-            return response.status(200).json(result);
-        } catch(err) {
-            console.log("Bar reading failed: " + err);
-            return response.status(500).json({ notification: "Internal server error while trying to get one bar" });
-        }
-    },
+      
 
     async update(request, response) {
         try {

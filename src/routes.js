@@ -43,6 +43,9 @@ const validateUser = require('./validators/UserValidator');
 const OrderController = require('./controllers/OrderController');
 const validadeOrder = require('./validators/OrderValidator');
 
+const GoogleDriveModel = require('./models/GoogleDriveModel');
+const imageUpload = require('./middlewares/imageUploader');
+
 //Avaliation
 routes.post('/avaliation', authenticateToken, isUser, celebrate(validadeAvaliation.create), AvaliationController.create);
 routes.get('/avaliation/:bar_id', celebrate(validadeAvaliation.index), AvaliationController.index);
@@ -50,7 +53,7 @@ routes.put('/avaliation/:id', authenticateToken, isUser, celebrate(validadeAvali
 routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAvaliation.delete), AvaliationController.delete);
 
 //Bar
-routes.post('/bar', generateId, celebrate(validateBar.create), BarController.create);
+routes.post('/bar',imageUpload('imageFile'), generateId, celebrate(validateBar.create), BarController.create);
 routes.get('/bar', BarController.getAll);
 routes.get('/bar/:id', celebrate(validateBar.getOne), BarController.getOne);
 routes.put('/bar', authenticateToken, isBar, celebrate(validateBar.update), BarController.update);
@@ -100,7 +103,7 @@ routes.put('/order_sheets/:id', authenticateToken, isUser, celebrate(validateOrd
 routes.delete('/order_sheets/:id',authenticateToken, isBar, celebrate(validateOrderSheets.delete), OrderSheetsController.delete);
 
 //Product
-routes.post('/product', authenticateToken, isBar,generateId, celebrate(validadeProduct.create), ProductController.create);
+routes.post('/product', authenticateToken, imageUpload('imageFile'), isBar,generateId, celebrate(validadeProduct.create), ProductController.create);
 routes.get('/menu/:bar_id', celebrate(validadeProduct.index), ProductController.index);
 routes.put('/product/:id', authenticateToken, isBar, celebrate(validadeProduct.update), ProductController.update);
 routes.delete('/product/:id',authenticateToken, isBar, celebrate(validadeProduct.delete), ProductController.delete);
@@ -119,6 +122,9 @@ routes.post('/user', generateId, celebrate(validateUser.create), UserController.
 routes.put('/user', authenticateToken, celebrate(validateUser.update), UserController.update);
 routes.delete('/user', authenticateToken, UserController.delete);
 
+
+// GoogleDrive
+routes.get("/validateGoogleToken", GoogleDriveModel.validateCredentials);
 
 //Token temporário
 const jwt = require('jsonwebtoken');
