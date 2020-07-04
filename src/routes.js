@@ -19,6 +19,9 @@ const validateCategory = require('./validators/CategoryValidator');
 const CommentController = require('./controllers/CommentController');
 const validateComment = require('./validators/CommentValidator');
 
+const DistanceController = require('./controllers/DistanceController');
+const validateDistance = require('./validators/DistanceValidator');
+
 const EventController = require('./controllers/EventController');
 const validateEvent = require('./validators/EventValidator');
 
@@ -71,12 +74,22 @@ routes.get('/comment', CommentController.index);
 routes.put('/comment/:id', celebrate(validateComment.update), CommentController.update);
 routes.delete('/comment/:id', celebrate(validateComment.delete), CommentController.delete);
 
+//Distance
+routes.post('/distance', celebrate(validateDistance.calculate), DistanceController.calculate);
+
 //Event
 routes.post('/event', celebrate(validateEvent.create), EventController.create);
 routes.get('/event', EventController.getAll);
 routes.get('/event/:id', celebrate(validateEvent.getOne), EventController.getOne);
 routes.put('/event/:id', celebrate(validateEvent.update), EventController.update);
 routes.delete('/event/:id', celebrate(validateEvent.delete), EventController.delete);
+
+//Order
+routes.post('/order', authenticateToken, isUser, generateId,celebrate(validadeOrder.create), OrderController.create);
+routes.get('/orders/fromSheet/:order_sheet_id', authenticateToken, celebrate(validadeOrder.indexSheet), OrderController.indexSheet);
+routes.get('/orders/fromBar/:bar_id', authenticateToken, isBar, celebrate(validadeOrder.indexBar), OrderController.indexBar);
+routes.put('/order/:id', authenticateToken, celebrate(validadeOrder.update), OrderController.update);
+routes.delete('/order/:id',authenticateToken, celebrate(validadeOrder.delete), OrderController.delete);
 
 //Order_Sheets
 routes.post('/order_sheets', authenticateToken, isUser, generateId, celebrate(validateOrderSheets.create), OrderSheetsController.create);
@@ -106,16 +119,10 @@ routes.post('/user', generateId, celebrate(validateUser.create), UserController.
 routes.put('/user', authenticateToken, celebrate(validateUser.update), UserController.update);
 routes.delete('/user', authenticateToken, UserController.delete);
 
-//Order
-routes.post('/order', authenticateToken, isUser, generateId,celebrate(validadeOrder.create), OrderController.create);
-routes.get('/orders/fromSheet/:order_sheet_id', authenticateToken, celebrate(validadeOrder.indexSheet), OrderController.indexSheet);
-routes.get('/orders/fromBar/:bar_id', authenticateToken, isBar, celebrate(validadeOrder.indexBar), OrderController.indexBar);
-routes.put('/order/:id', authenticateToken, celebrate(validadeOrder.update), OrderController.update);
-routes.delete('/order/:id',authenticateToken, celebrate(validadeOrder.delete), OrderController.delete);
-
 
 //Token temporário
 const jwt = require('jsonwebtoken');
+const DistanceModel = require('./models/DistanceModel');
 
 routes.get('/token/bar', function (req, res) {
   const accessToken = jwt.sign({ type: 'bar', id: req.query.id }, process.env.ACCESS_TOKEN_SECRET);
@@ -126,6 +133,5 @@ routes.get('/token/user', function (req, res) {
   const accessToken = jwt.sign({ type: 'user', id: req.query.id }, process.env.ACCESS_TOKEN_SECRET);
   res.json({token: accessToken});
 });
-
 
 module.exports = routes;

@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "firebase": "^7.15.5",
     "firebase-admin": "^8.12.1",
+    "geopoint": "^1.0.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
     "nodemon": "^2.0.4",
