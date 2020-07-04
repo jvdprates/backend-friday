@@ -1,7 +1,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('users', function (table) {
         table.string('id').primary().notNullable();
-        table.string('payment_cards_id').references('id').inTable('payment_cards');
+        table.string('payment_cards_id').references('id').inTable('payment_cards').onDelete('SET NULL');
         table.string('firebase_id').notNullable();
         table.string('name').notNullable();
         table.string('surname').notNullable();

@@ -1,4 +1,5 @@
 const connection = require("../database/connection");
+const { deleteCard } = require("../controllers/UserController");
 
 module.exports = {
     async createUser(user) {
@@ -24,6 +25,29 @@ module.exports = {
             .where({ id: user_id })
             .update(user);
         console.log("User Updated!");
+        return result;
+    },
+
+    async createCard(user_id, payment_card) {
+        console.log("Creating card...")
+        const result = await connection("payment_cards")
+            .insert(payment_card)
+            
+        console.log("result:" + payment_card.id);
+
+        await connection("users")
+            .where({id: user_id})
+            .update({payment_cards_id: payment_card.id})
+        console.log("Card registered!");
+        return result;
+    },
+
+    async deleteCard(id){
+        console.log("Deleting card...")
+        const result = await connection("payment_cards")
+            .where("id", "=", id)
+            .delete();
+        console.log("Card deleted!");
         return result;
     },
 
