@@ -12,16 +12,6 @@ module.exports = {
         }
     },
 
-    async index(request, response) {
-        try {
-            const result = await BarModel.readAllBars();
-            return response.status(200).json(result);
-        } catch(err) {
-            console.log("Bar reading failed: " + err);
-            return response.status(500).json({ notification: "Internal server error while trying to get all bars" });
-        }
-    },
-
     async getAll(request, response) {
         try {
             const result = await BarModel.getAllBars();
