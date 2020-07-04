@@ -12,6 +12,9 @@ const validateUser = require('./validators/UserValidator');
 const CategoryController = require('./controllers/CategoryController');
 const validateCategory = require('./validators/CategoryValidator');
 
+const EventController = require('./controllers/EventController');
+const validateEvent = require('./validators/EventValidator');
+
 //User
 routes.post('/user', generateId, celebrate(validateUser.create), UserController.create);
 routes.get('/user/:id', celebrate(validateUser.getOne), UserController.getOne);
@@ -28,6 +31,13 @@ routes.get('/bar', BarController.getAll);
 routes.get('/bar/:id', celebrate(validateBar.getOne), BarController.getOne);
 routes.put('/bar/:id', celebrate(validateBar.update), BarController.update);
 routes.delete('/bar/:id', celebrate(validateBar.delete), BarController.delete);
+
+//Event
+routes.post('/event', celebrate(validateEvent.create), EventController.create);
+routes.get('/event', EventController.getAll);
+routes.get('/event/:id', celebrate(validateEvent.getOne), EventController.getOne);
+routes.put('/event/:id', celebrate(validateEvent.update), EventController.update);
+routes.delete('/event/:id', celebrate(validateEvent.delete), EventController.delete);
 
 //Category
 routes.post('/category', generateId, celebrate(validateCategory.create), CategoryController.create);

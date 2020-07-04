@@ -11,9 +11,10 @@ module.exports = {
 
     async getOneEvent(event_id) {
         console.log("Getting one event...");
-        const result = await connection("events")
-            .where("id", "=", event_id)
-            .select("*")
+        const result = await connection("events as e")
+            .where("e.id", "=", event_id)
+            .join("bars as b", "e.bars_id", "=", "b.id")
+            .select("*", "e.description as event_description")
             .first();
         return result;
     },
@@ -25,7 +26,7 @@ module.exports = {
         return result;
     },
 
-    async updateEvent(event, event_id) {
+    async updateEvent(event_id, event) {
         console.log("Updating event: " + event.name);
         const result = await connection("events")
             .where("id", "=", event_id)

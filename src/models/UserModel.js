@@ -1,5 +1,4 @@
 const connection = require("../database/connection");
-const { deleteCard } = require("../controllers/UserController");
 
 module.exports = {
     async createUser(user) {
