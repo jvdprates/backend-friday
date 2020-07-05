@@ -5,13 +5,13 @@ let validadeAvaliation = new Object();
 validadeAvaliation.create = {
   [Segments.BODY]: Joi.object().keys({
     bars_id: Joi.string().required(),
-    bar_space: Joi.number().integer().min(0).max(5).optional(),
-    bar_service: Joi.number().integer().min(0).max(5).optional(),
-    bar_cleaning: Joi.number().integer().min(0).max(5).optional(),
-    bar_foods: Joi.number().integer().min(0).max(5).optional(),
-    bar_cleaning: Joi.number().integer().min(0).max(5).optional(),
-    bar_drinks: Joi.number().integer().min(0).max(5).optional(),
-    bar_price: Joi.number().integer().min(0).max(5).optional(),
+    bar_space: Joi.number().min(0).max(5).optional(),
+    bar_service: Joi.number().min(0).max(5).optional(),
+    bar_cleaning: Joi.number().min(0).max(5).optional(),
+    bar_foods: Joi.number().min(0).max(5).optional(),
+    bar_cleaning: Joi.number().min(0).max(5).optional(),
+    bar_drinks: Joi.number().min(0).max(5).optional(),
+    bar_price: Joi.number().min(0).max(5).optional(),
   }),
 };
 
