@@ -17,7 +17,7 @@ module.exports = {
 
     const indexes = {};
     const ids = sheets.map((sheet, index) => {
-      const id = sheet.id
+      const id = sheet.id;
       sheet.orders = [];
       indexes[id] = index;
 
@@ -41,7 +41,8 @@ module.exports = {
     console.log("Finding orders from: " + order_sheet_id);
     const result = await connection("orders AS o")
       .join("order_sheets AS s", "o.order_sheets_id", "s.id")
-      .select("o.*")
+      .join("products AS p", "o.products_id", "p.id")
+      .select("p.*", "o.*")
       .where({ "o.order_sheets_id": order_sheet_id });
 
     return result;
