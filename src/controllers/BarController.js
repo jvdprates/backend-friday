@@ -36,9 +36,12 @@ module.exports = {
     }
   },
 
-  async getAll(request, response) {
+  async index(request, response) {
     try {
-      const result = await BarModel.getAllBars();
+      const { distance, alphabetic, lat, long } = request.query;
+      let userPosition = {lat, long};
+      let query = {distance, alphabetic};
+      const result = await BarModel.index(userPosition, query);
       return response.status(200).json(result);
     } catch (err) {
       console.log("Bar reading failed: " + err);

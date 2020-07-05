@@ -10,7 +10,7 @@ module.exports = {
     },
 
     async getUserByFirebaseUid(firebase_id) {
-        console.log("Finding User: " + firebase_id);
+        console.log("Getting User: " + firebase_id);
         const result = await connection("users")
             .where({ firebase_id })
             .select("*")
