@@ -97,6 +97,7 @@ routes.delete('/order/:id',authenticateToken, celebrate(validadeOrder.delete), O
 //Order_Sheets
 routes.post('/order_sheets', authenticateToken, isUser, generateId, celebrate(validateOrderSheets.create), OrderSheetsController.create);
 routes.get('/order_sheets', authenticateToken, isBar, OrderSheetsController.index);
+routes.get('/order_sheets_id/:id',celebrate(validateOrderSheets.getById), authenticateToken, OrderSheetsController.getById);
 routes.get('/people/:bar_id', celebrate(validateOrderSheets.indexPeople), OrderSheetsController.indexPeople);
 routes.get('/order_sheets/:user_id', authenticateToken, celebrate(validateOrderSheets.getByUser), OrderSheetsController.getByUser);
 routes.put('/order_sheets/:id', authenticateToken, isUser, celebrate(validateOrderSheets.update), OrderSheetsController.update);

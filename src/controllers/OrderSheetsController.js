@@ -17,6 +17,18 @@ module.exports = {
       });
     }
   },
+  async getById(request, response) {
+    try {
+      const id = request.params.id;
+      const result = await OrderSheetsModel.getById(id);
+      return response.status(200).json(result);
+    } catch (err) {
+      console.log("OrderSheet reading failed: " + err);
+      return response.status(500).json({
+        notification: "Internal server error while trying to get order_sheets",
+      });
+    }
+  },
 
   async index(request, response) {
     try {

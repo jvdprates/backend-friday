@@ -50,4 +50,10 @@ validateOrderSheets.delete = {
   }),
 };
 
+validateOrderSheets.getById = {
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+};
+
 module.exports = validateOrderSheets;
