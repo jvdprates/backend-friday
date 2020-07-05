@@ -1,4 +1,5 @@
 const connection = require("../database/connection");
+const { getById } = require("../controllers/OrderSheetsController");
 
 module.exports = {
   async createOrderSheets(order_sheets) {
@@ -29,6 +30,17 @@ module.exports = {
     const result = await connection("order_sheets as os")
       .where("os.user_id", "=", user_id)
       .select("*");
+    return result;
+  },
+
+  async getById(id) {
+    console.log("Getting user order_sheets...");
+    const result = await connection("order_sheets as os")
+      .join("tables as t", "os.tables_id", "t.id")
+      .where({ "os.id": id })
+      .select("os.*", "t.table_number")
+      .first();
+
     return result;
   },
 
