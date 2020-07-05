@@ -1,4 +1,6 @@
 const connection = require("../database/connection");
+const BarModel = require("./DistanceModel");
+const DistanceModel = require("./DistanceModel");
 
 module.exports = {
     async createBar(bar) {
@@ -9,10 +11,49 @@ module.exports = {
         return result;
     },
 
-    async getAllBars() {
-        const result = await connection("bars")
+    async index(userPosition, query) {
+
+        async function orderAlphabetically(bars, notReverse) {
+            let result = bars.sort(function (a, b) {
+                if (a.name === b.name) {
+                    return 0;
+                }
+
+                if (a.name > b.name) {
+                    return 1;
+                }
+
+                return -1;
+            });
+            if(!notReverse){
+                return result.reverse();
+            }
+            return result;
+        }
+
+        async function orderByDistance(bars, notReverse) {
+            let result = bars.sort(function (a, b) {
+                return (a.distance - b.distance);
+            });
+            if (!notReverse) {
+                return result.reverse();
+            }
+            return result;
+        }
+
+        const bars = await connection("bars")
             .select('*');
-        return result;
+
+        bars.forEach(async function(bar){
+            bar.distance = await DistanceModel.calculateDistance(userPosition, { lat: bar.lat, long: bar.long });
+        })
+
+        if (query.distance)
+            bars = orderByDistance(bars, query.distance)
+        if (query.alphabetic)
+            bars = orderAlphabetically(bars, query.alphabetic)
+
+        return bars;
     },
 
     async getOneBar(bar_id) {

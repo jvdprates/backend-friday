@@ -54,7 +54,7 @@ routes.delete('/avaliation/:id',authenticateToken, isUser, celebrate(validadeAva
 
 //Bar
 routes.post('/bar',imageUpload('imageFile'), generateId, celebrate(validateBar.create), BarController.create);
-routes.get('/bar', BarController.getAll);
+routes.get('/bar', celebrate(validateBar.index), BarController.index);
 routes.get('/bar/:id', celebrate(validateBar.getOne), BarController.getOne);
 routes.put('/bar', authenticateToken, isBar, celebrate(validateBar.update), BarController.update);
 routes.delete('/bar', authenticateToken, isBar, BarController.delete);

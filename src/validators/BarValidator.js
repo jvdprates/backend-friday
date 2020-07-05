@@ -21,7 +21,7 @@ table.timestamp('created_at').defaultTo(knex.fn.now());
 table.string('firebase_id').notNullable(); */
 
 validateBar.create = {
-[Segments.BODY]: Joi.object().keys({
+    [Segments.BODY]: Joi.object().keys({
         id: Joi.string().required(),
         name: Joi.string().required(),
         image_id: Joi.string().optional(),
@@ -36,8 +36,22 @@ validateBar.create = {
         street: Joi.string().required(),
         number: Joi.number().integer().required(),
         complement: Joi.string().optional(),
-        lat: Joi.number().required(),
-        long: Joi.number().required()
+        lat: Joi.number().min(-90).max(90).required(),
+        long: Joi.number().min(-180).max(180).required()
+    })
+};
+/**
+ * Alfabetica
+ * distancia
+ * preco
+ * higiene
+ */
+validateBar.index = {
+    [Segments.QUERY]: Joi.object().keys({
+        distance: Joi.boolean().optional(),
+        alphabetic: Joi.boolean().optional(),
+        lat: Joi.number().min(-90).max(90).required(),
+        long: Joi.number().min(-180).max(180).required()
     })
 };
 
@@ -61,8 +75,8 @@ validateBar.update = {
         street: Joi.string().optional(),
         number: Joi.string().optional(),
         complement: Joi.string().optional(),
-        lat: Joi.number().optional(),
-        long: Joi.number().optional()
+        lat: Joi.number().min(-90).max(90).optional(),
+        long: Joi.number().min(-180).max(180).optional()
     })
 };
 
