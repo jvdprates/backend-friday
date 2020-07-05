@@ -1,6 +1,6 @@
-const { Segments, Joi } = require('celebrate');
+const { Segments, Joi } = require("celebrate");
 
-let validateComment = new Object;
+let validateComment = new Object();
 
 /* .createTable(('comments'), function (table) {
     table.increments();
@@ -10,26 +10,32 @@ let validateComment = new Object;
 }) */
 
 validateComment.create = {
-    [Segments.BODY]: Joi.object().keys({
-        bars_id: Joi.string().required(),
-        users_id: Joi.string().required(),
-        comment: Joi.string().required()
-    })
+  [Segments.BODY]: Joi.object().keys({
+    bars_id: Joi.string().required(),
+    users_id: Joi.string().required(),
+    comment: Joi.string().required(),
+  }),
 };
 
 validateComment.update = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    }),
-    [Segments.BODY]: Joi.object().keys({
-        comment: Joi.string().required()
-    })
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
+  [Segments.BODY]: Joi.object().keys({
+    comment: Joi.string().required(),
+  }),
+};
+
+validateComment.index = {
+  [Segments.PARAMS]: Joi.object().keys({
+    bar_id: Joi.string().required(),
+  }),
 };
 
 validateComment.delete = {
-    [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.string().required(),
-    })
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().required(),
+  }),
 };
 
 module.exports = validateComment;

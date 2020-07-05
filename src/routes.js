@@ -73,7 +73,7 @@ routes.delete('/category/:id', celebrate(validateCategory.delete), CategoryContr
 
 //Comment
 routes.post('/comment', celebrate(validateComment.create), CommentController.create);
-routes.get('/comment', CommentController.index);
+routes.get('/comment/:bar_id',celebrate(validateComment.index), CommentController.index);
 routes.put('/comment/:id', celebrate(validateComment.update), CommentController.update);
 routes.delete('/comment/:id', celebrate(validateComment.delete), CommentController.delete);
 
