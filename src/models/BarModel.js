@@ -36,7 +36,7 @@ module.exports = {
             let result = bars.sort(function (a, b) {
                 return (b.distance - a.distance);
             });
-            if (!notReverse) {
+            if (notReverse) {
                 return result.reverse();
             }
             return result;
