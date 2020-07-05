@@ -4,12 +4,12 @@ module.exports = {
   async create(avaliation) {
     console.log("Creating Avaliation");
     const result = await connection("avaliations").insert(avaliation);
-    console.log("Create Avaliation!");
+    console.log("Avaliation Created!");
     return result;
   },
 
   async index(bar_id) {
-    console.log("Finding avaliations from: " + bar_id);
+
     const result = await connection("avaliations")
       .avg("bar_space AS bar_space")
       .avg("bar_service AS bar_service")
@@ -18,7 +18,8 @@ module.exports = {
       .avg("bar_foods AS bar_foods")
       .avg("bar_drinks AS bar_drinks")
       .avg("bar_price AS bar_price")
-      .where({ bars_id: bar_id });
+      .where({ bars_id: bar_id })
+      .first();
 
     return result;
   },
