@@ -9,6 +9,7 @@ validadeProduct.create = {
     description: Joi.string().required(),
     image_id: Joi.string().optional(),
     name: Joi.string().required(),
+    category: Joi.string().allow("drink", "desert", "portions").required(),
   }),
 };
 
@@ -27,6 +28,7 @@ validadeProduct.update = {
     description: Joi.string().optional(),
     image_id: Joi.string().optional(),
     name: Joi.string().optional(),
+    category: Joi.string().allow("drink", "desert", "portions").optional(),
   }),
 };
 
