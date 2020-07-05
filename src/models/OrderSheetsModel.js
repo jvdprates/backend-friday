@@ -37,8 +37,9 @@ module.exports = {
     console.log("Getting user order_sheets...");
     const result = await connection("order_sheets as os")
       .join("tables as t", "os.tables_id", "t.id")
+      .join("bars as b", "t.bars_id", "b.id")
       .where({ "os.id": id })
-      .select("os.*", "t.table_number")
+      .select("b.*", "t.table_number", "t.bars_id", "os.*")
       .first();
 
     return result;
