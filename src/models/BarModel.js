@@ -1,6 +1,7 @@
 const connection = require("../database/connection");
 const BarModel = require("./DistanceModel");
 const DistanceModel = require("./DistanceModel");
+const AvaliationModel = require("./AvaliationModel");
 
 module.exports = {
     async createBar(bar) {
@@ -25,7 +26,7 @@ module.exports = {
 
                 return -1;
             });
-            if(!notReverse){
+            if (!notReverse) {
                 return result.reverse();
             }
             return result;
@@ -33,7 +34,7 @@ module.exports = {
 
         async function orderByDistance(bars, notReverse) {
             let result = bars.sort(function (a, b) {
-                return (a.distance - b.distance);
+                return (b.distance - a.distance);
             });
             if (!notReverse) {
                 return result.reverse();
@@ -41,17 +42,24 @@ module.exports = {
             return result;
         }
 
-        const bars = await connection("bars")
+        let bars = await connection("bars")
             .select('*');
 
-        bars.forEach(async function(bar){
-            bar.distance = await DistanceModel.calculateDistance(userPosition, { lat: bar.lat, long: bar.long });
+        await bars.forEach(async function (element) {
+            element.distance = await DistanceModel.calculateDistance(userPosition, { lat: element.lat, long: element.long });
         })
 
-        if (query.distance)
-            bars = orderByDistance(bars, query.distance)
-        if (query.alphabetic)
-            bars = orderAlphabetically(bars, query.alphabetic)
+        if (query.distance !== undefined) {
+            bars = await orderByDistance(bars, query.distance)
+        }
+
+        if (query.alphabetic !== undefined) {
+            bars = await orderAlphabetically(bars, query.alphabetic)
+        }
+
+        await bars.forEach(async function(element){
+            element.avaliation = await AvaliationModel.index(element.id);
+        });
 
         return bars;
     },
